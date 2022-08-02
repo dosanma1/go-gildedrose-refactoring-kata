@@ -6,12 +6,13 @@ import (
 	"strconv"
 
 	"github.com/dosanma1/go-gildedrose-refactoring-kata/gildedrose"
+	"github.com/dosanma1/go-gildedrose-refactoring-kata/gildedrose/model"
 )
 
 func main() {
 	fmt.Println("OMGHAI!")
 
-	var items = []*gildedrose.Item{
+	var items = []*model.Item{
 		{Name: "+5 Dexterity Vest", SellIn: 10, Quality: 20},
 		{Name: "Aged Brie", SellIn: 2, Quality: 0},
 		{Name: "Elixir of the Mongoose", SellIn: 5, Quality: 7},

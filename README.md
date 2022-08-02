@@ -19,3 +19,9 @@ go test ./... -coverprofile=coverage.out
 
 go tool cover -html=coverage.out
 ```
+
+or
+
+```shell
+go clean --cache && go test -v -cover github.com/dosanma1/go-gildedrose-refactoring-kata/...
+```

@@ -1,58 +1,41 @@
 package gildedrose
 
-type Item struct {
-	Name            string
-	SellIn, Quality int
-}
+import (
+	"strings"
 
-func UpdateQuality(items []*Item) {
+	"github.com/dosanma1/go-gildedrose-refactoring-kata/gildedrose/model"
+)
+
+const (
+	AGED_BRIE = "Aged Brie"
+	SULFURAS  = "Sulfuras, Hand of Ragnaros"
+	BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert"
+	CONJURED  = "Conjured"
+)
+
+func UpdateQuality(items []*model.Item) {
+	var item *model.Item
+	var uItem model.UpdatableItem
 	for i := 0; i < len(items); i++ {
 
-		if items[i].Name != "Aged Brie" && items[i].Name != "Backstage passes to a TAFKAL80ETC concert" {
-			if items[i].Quality > 0 {
-				if items[i].Name != "Sulfuras, Hand of Ragnaros" {
-					items[i].Quality = items[i].Quality - 1
-				}
-			}
-		} else {
-			if items[i].Quality < 50 {
-				items[i].Quality = items[i].Quality + 1
-				if items[i].Name == "Backstage passes to a TAFKAL80ETC concert" {
-					if items[i].SellIn < 11 {
-						if items[i].Quality < 50 {
-							items[i].Quality = items[i].Quality + 1
-						}
-					}
-					if items[i].SellIn < 6 {
-						if items[i].Quality < 50 {
-							items[i].Quality = items[i].Quality + 1
-						}
-					}
-				}
-			}
-		}
+		item = items[i]
 
-		if items[i].Name != "Sulfuras, Hand of Ragnaros" {
-			items[i].SellIn = items[i].SellIn - 1
-		}
-
-		if items[i].SellIn < 0 {
-			if items[i].Name != "Aged Brie" {
-				if items[i].Name != "Backstage passes to a TAFKAL80ETC concert" {
-					if items[i].Quality > 0 {
-						if items[i].Name != "Sulfuras, Hand of Ragnaros" {
-							items[i].Quality = items[i].Quality - 1
-						}
-					}
-				} else {
-					items[i].Quality = items[i].Quality - items[i].Quality
-				}
+		switch item.Name {
+		case SULFURAS:
+			uItem = &model.Sulfuras{}
+		case AGED_BRIE:
+			uItem = &model.AgedBrie{}
+		case BACKSTAGE:
+			uItem = &model.Backstage{}
+		default:
+			if strings.HasPrefix(item.Name, CONJURED) {
+				uItem = &model.Conjured{}
 			} else {
-				if items[i].Quality < 50 {
-					items[i].Quality = items[i].Quality + 1
-				}
+				uItem = &model.StandardItem{}
 			}
 		}
+
+		uItem.Update(item)
 	}
 
 }
