@@ -1,5 +1,7 @@
 package model
 
-type Sulfuras struct{}
+type Sulfuras struct {
+	*Item
+}
 
-func (s *Sulfuras) Update(item *Item) {}
+func (s *Sulfuras) Update() {}

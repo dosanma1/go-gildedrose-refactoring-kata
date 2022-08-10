@@ -1,25 +1,27 @@
 package model
 
-type Backstage struct{}
+type Backstage struct {
+	*Item
+}
 
-func (b *Backstage) Update(item *Item) {
-	item.decreaseSellIn()
+func (b *Backstage) Update() {
+	decreaseSellIn(b.Item)
 
-	if item.isExpired() {
-		item.Quality = 0
+	if isExpired(b.Item) {
+		b.Quality = 0
 		return
 	}
 
-	if item.SellIn < 5 {
-		item.increaseQuality(3)
+	if b.SellIn < 5 {
+		increaseQuality(b.Item, 3)
 		return
 	}
 
-	if item.SellIn < 10 {
-		item.increaseQuality(2)
+	if b.SellIn < 10 {
+		increaseQuality(b.Item, 2)
 		return
 	}
 
-	item.increaseQuality(1)
+	increaseQuality(b.Item, 1)
 
 }

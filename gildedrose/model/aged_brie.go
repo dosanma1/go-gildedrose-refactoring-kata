@@ -1,13 +1,17 @@
 package model
 
-type AgedBrie struct{}
+type AgedBrie struct {
+	*Item
+}
 
-func (a *AgedBrie) Update(item *Item) {
-	item.decreaseSellIn()
+func (a *AgedBrie) Update() {
+	decreaseSellIn(a.Item)
 
-	if item.isExpired() {
-		item.increaseQuality(2)
-	} else {
-		item.increaseQuality(1)
+	if isExpired(a.Item) {
+		increaseQuality(a.Item, 2)
+		return
 	}
+
+	increaseQuality(a.Item, 1)
+
 }

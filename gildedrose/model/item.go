@@ -1,8 +1,8 @@
 package model
 
 const (
-	MAX_VALUE = 50
-	MIN_VALUE = 0
+	maxValue = 50
+	minValue = 0
 )
 
 type Item struct {
@@ -10,26 +10,26 @@ type Item struct {
 	SellIn, Quality int
 }
 
-func (i *Item) increaseQuality(quantity int) {
-	i.Quality += quantity
+func increaseQuality(item *Item, quantity int) {
+	item.Quality += quantity
 
-	if i.Quality >= MAX_VALUE {
-		i.Quality = MAX_VALUE
+	if item.Quality >= maxValue {
+		item.Quality = maxValue
 	}
 }
 
-func (i *Item) decreaseQuality(quantity int) {
-	i.Quality -= quantity
+func decreaseQuality(item *Item, quantity int) {
+	item.Quality -= quantity
 
-	if i.Quality <= MIN_VALUE {
-		i.Quality = MIN_VALUE
+	if item.Quality <= minValue {
+		item.Quality = minValue
 	}
 }
 
-func (i *Item) decreaseSellIn() {
-	i.SellIn--
+func decreaseSellIn(item *Item) {
+	item.SellIn--
 }
 
-func (i *Item) isExpired() bool {
-	return i.SellIn < 0
+func isExpired(item *Item) bool {
+	return item.SellIn < 0
 }

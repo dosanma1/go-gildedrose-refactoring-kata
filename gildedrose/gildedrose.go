@@ -7,35 +7,32 @@ import (
 )
 
 const (
-	AGED_BRIE = "Aged Brie"
-	SULFURAS  = "Sulfuras, Hand of Ragnaros"
-	BACKSTAGE = "Backstage passes to a TAFKAL80ETC concert"
-	CONJURED  = "Conjured"
+	agedBrie  = "Aged Brie"
+	sulfuras  = "Sulfuras, Hand of Ragnaros"
+	backstage = "Backstage passes to a TAFKAL80ETC concert"
+	conjured  = "Conjured"
 )
 
 func UpdateQuality(items []*model.Item) {
-	var item *model.Item
 	var uItem model.UpdatableItem
-	for i := 0; i < len(items); i++ {
-
-		item = items[i]
+	for _, item := range items {
 
 		switch item.Name {
-		case SULFURAS:
-			uItem = &model.Sulfuras{}
-		case AGED_BRIE:
-			uItem = &model.AgedBrie{}
-		case BACKSTAGE:
-			uItem = &model.Backstage{}
+		case sulfuras:
+			uItem = &model.Sulfuras{Item: item}
+		case agedBrie:
+			uItem = &model.AgedBrie{Item: item}
+		case backstage:
+			uItem = &model.Backstage{Item: item}
 		default:
-			if strings.HasPrefix(item.Name, CONJURED) {
-				uItem = &model.Conjured{}
+			if strings.HasPrefix(item.Name, conjured) {
+				uItem = &model.Conjured{Item: item}
 			} else {
-				uItem = &model.StandardItem{}
+				uItem = &model.StandardItem{Item: item}
 			}
 		}
 
-		uItem.Update(item)
+		uItem.Update()
 	}
 
 }

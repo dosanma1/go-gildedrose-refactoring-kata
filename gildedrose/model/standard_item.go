@@ -1,13 +1,17 @@
 package model
 
-type StandardItem struct{}
+type StandardItem struct {
+	*Item
+}
 
-func (s *StandardItem) Update(item *Item) {
-	item.decreaseSellIn()
+func (s *StandardItem) Update() {
+	decreaseSellIn(s.Item)
 
-	if item.isExpired() {
-		item.decreaseQuality(2)
-	} else {
-		item.decreaseQuality(1)
+	if isExpired(s.Item) {
+		decreaseQuality(s.Item, 2)
+		return
 	}
+
+	decreaseQuality(s.Item, 1)
+
 }

@@ -1,8 +1,10 @@
 package model
 
-type Conjured struct{}
+type Conjured struct {
+	*Item
+}
 
-func (c *Conjured) Update(item *Item) {
-	item.decreaseSellIn()
-	item.decreaseQuality(2)
+func (c *Conjured) Update() {
+	decreaseSellIn(c.Item)
+	decreaseQuality(c.Item, 2)
 }
