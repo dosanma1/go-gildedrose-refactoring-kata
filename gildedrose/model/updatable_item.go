@@ -1,5 +1,5 @@
 package model
 
-type UpdatableItem interface {
+type DegradableItem interface {
 	Update()
 }

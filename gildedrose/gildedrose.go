@@ -14,25 +14,26 @@ const (
 )
 
 func UpdateQuality(items []*model.Item) {
-	var uItem model.UpdatableItem
 	for _, item := range items {
-
-		switch item.Name {
-		case sulfuras:
-			uItem = &model.Sulfuras{Item: item}
-		case agedBrie:
-			uItem = &model.AgedBrie{Item: item}
-		case backstage:
-			uItem = &model.Backstage{Item: item}
-		default:
-			if strings.HasPrefix(item.Name, conjured) {
-				uItem = &model.Conjured{Item: item}
-			} else {
-				uItem = &model.StandardItem{Item: item}
-			}
-		}
-
+		uItem := getDegradableItem(item)
 		uItem.Update()
 	}
 
+}
+
+func getDegradableItem(item *model.Item) model.DegradableItem {
+	switch item.Name {
+	case sulfuras:
+		return &model.Sulfuras{Item: item}
+	case agedBrie:
+		return &model.AgedBrie{Item: item}
+	case backstage:
+		return &model.Backstage{Item: item}
+	default:
+		if strings.HasPrefix(item.Name, conjured) {
+			return &model.Conjured{Item: item}
+		} else {
+			return &model.StandardItem{Item: item}
+		}
+	}
 }
